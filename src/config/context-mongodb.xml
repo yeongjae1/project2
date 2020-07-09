@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/data/mongo
+   http://www.springframework.org/schema/data/mongo/spring-mongo-2.2.xsd
+   http://www.springframework.org/schema/beans 
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- <property name="url" value="jdbc:mysql://localhost:3306/testdb?useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC" 
+		/> -->
+	<!-- 서버에 연결할때의 value값 -->
+	<!-- jdbc:mysql://192.168.175.54:3306/evergreen2019?useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC -->
+
+
+
+	<!-- -->
+	<mongo:mongo-client host="13.124.21.146"
+		port="27017" credentials="myUser:1234@MyDB" id="mongo">
+	</mongo:mongo-client>
+
+	<mongo:db-factory dbname="MyDB" mongo-ref="mongo"
+		id="mongoDbFactory" />
+
+	<bean id="mongoTemplate"
+		class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory"
+			ref="mongoDbFactory" />
+
+	</bean>
+
+
+</beans>
